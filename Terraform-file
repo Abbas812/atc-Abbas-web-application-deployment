@@ -1,0 +1,31 @@
+#terraform aks 
+
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>3.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_kubernetes_cluster" "kube_aks" {
+  name                = "kube-aks"
+  location            = "eastus"
+  resource_group_name = "ak-rg"
+  dns_prefix          = "kubeaks"
+
+  default_node_pool {
+    name       = "default"
+    node_count = 2
+    vm_size    = "Standard_D2_v2"
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+}
