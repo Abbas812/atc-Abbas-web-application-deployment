@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-hello-world
+  labels:
+    app: nginx-hello-world
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-hello-world
+  template:
+    metadata:
+      labels:
+        app: nginx-hello-world
+    spec:
+      containers:
+      - name: nginx-hello-world
+        image: <dockerhub-username>/nginx-hello-world:latest
+        ports:
+        - containerPort: 80
